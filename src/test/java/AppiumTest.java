@@ -1,18 +1,17 @@
 import base.mobile.AndroidSetup;
+import models.linkedinmobile.HomePage;
+import models.linkedinmobile.LoginPage;
+import models.linkedinmobile.MessagePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 
 public class AppiumTest extends AndroidSetup {
-
     @BeforeClass
     public void setUp() throws Exception {
-        prepareAndroidForAppium("src/main/resources/models/linkedin", "linkedin-4-0-93.apk");
+        prepareAndroidForAppium("src/main/resources/models/linkedin", "linkedin-4-0-98.apk");
     }
 
     @AfterClass
@@ -20,34 +19,70 @@ public class AppiumTest extends AndroidSetup {
         driver.quit();
     }
 
+
     @Test
-    public void showTest() {
+    public void loginTest() {
 
-        String app_package_name = "com.linkedin.android:id/";
+        new LoginPage(driver).loginIntoProfile();
+    }
 
-        By firstSignIn = By.id(app_package_name + "growth_prereg_fragment_sign_in_button");
-        By userEmail = By.id(app_package_name + "growth_login_join_fragment_email_address");
-        By userPassword = By.id(app_package_name + "growth_login_join_fragment_password");
-        By showButton = By.id(app_package_name + "growth_login_join_show_hide_password");
 
-        waitForVisibilityOf(firstSignIn);
+    @Test
+    public void searchTest(){
 
-        driver.findElement(firstSignIn).click();
+        new HomePage(driver)
+                .searchFor("Arthur Pi")
+                .selectResultListItem("Arthur Pilyuk")
+                .clickOnMessageButton();
+    }
 
-        driver.findElement(userEmail).sendKeys("test@mail.com");
-        driver.findElement(userPassword).sendKeys("password123");
 
-        driver.findElement(showButton).click();
+    @Test
+    public void sendMessageToContact(){
 
-        //Checking if the "SHOW" button works right
-        String typedPass = driver.findElement(userPassword).getText();
-        Assert.assertEquals(typedPass, "password123");
+        new MessagePage(driver)
+                .createMessage()
+                .checkForSending();
+    }
+
+    @Test
+    public void pressBack(){
+        driver.findElement(By.className("android.widget.ImageButton")).click();
 
     }
 
-    protected void waitForVisibilityOf(By locator) {
 
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+
+
+    @Test
+    public void testSwipeOnHomePage()  {
+        new HomePage(driver).swipeFromRightToPullMenu();
+
     }
+
+
+    @Test
+    public  void testScrollUponHomePage(){
+        new HomePage(driver).scrollUponHomePage();
+
+    }
+
+    @Test
+    public void fullTestOfBackButton(){
+        new LoginPage(driver).loginIntoProfile();
+        new HomePage(driver)
+                .searchFor("Arthur Pi")
+                .selectResultListItem("Arthur Pilyuk")
+                .clickOnMessageButton();
+        driver.findElement(By.className("android.widget.ImageButton")).click();
+        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 }
+
