@@ -79,7 +79,7 @@ public class DriverConfigurator {
             }
             if (SystemUtils.IS_OS_LINUX){
                 System.out.println("OS is Linux");
-                System.out.println("Driver configuration for linux is not implemented yet");
+                System.out.println("Driver configuration for linux is not implemented yet ");
             }
         }
 
