@@ -41,7 +41,7 @@ public class JiraUi {
         Helpers helpers = new Helpers();
         LoginPage loginPage = new LoginPage();
         String newTitle = "System Dashboard - JIRA";
-        String title = "Log in - JIRA";
+        String title = "ВОЙТИ - IT Hillel";
         //открываем страницу логина. ну в целом логично
         loginPage.openPage();
         // выполняем проверку, попали ли мы на страницу с нужным тайтлом

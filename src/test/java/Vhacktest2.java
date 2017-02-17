@@ -8,17 +8,16 @@ import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
 
-public class Vhacktest extends AndroidSetup {
+public class Vhacktest2 extends AndroidSetup {
 
     @BeforeTest
     public void setUp() throws MalformedURLException {
-        prepareAndroidForAppium("src/main/resources/models/vhack","vHack_1.42.apk");
+        prepareAndroidForAppium("src/main/resources/models/vhack","vHack_1.42.apk", 4726);
         driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
     }
 
     @AfterTest
     public void tearDown() throws Exception {
-        driver.closeApp();
         driver.quit();
     }
 

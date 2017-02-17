@@ -1,5 +1,6 @@
 package base.ui;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -52,26 +53,33 @@ public class DriverConfigurator {
             driver = new RemoteWebDriver(hostURL, capability);
         }
         else{
-            if (browserName.toLowerCase().contains("firefox")) {
-                System.setProperty("webdriver.gecko.driver", "src/main/resources/base/geckodriver32.exe");
-               driver = new FirefoxDriver();
+            if (SystemUtils.IS_OS_WINDOWS) {
+                System.out.println("OS is Windows");
+                if (browserName.toLowerCase().contains("firefox")) {
+                    System.setProperty("webdriver.gecko.driver", "src/main/resources/base/geckodriver32.exe");
+                    driver = new FirefoxDriver();
+                }
+                if (browserName.toLowerCase().contains("internet")) {
+                    System.setProperty("webdriver.ie.driver", "src/main/resources/base/IEDriverServer32.exe");
+                    driver = new InternetExplorerDriver();
+                }
+                if (browserName.toLowerCase().contains("chrome")) {
+                    System.setProperty("webdriver.chrome.driver", "src/main/resources/base/chromedriver.exe");
+                    driver = new ChromeDriver();
+                }
+                if (browserName.toLowerCase().contains("safari")) {
+                    System.out.println("ERR: NOT YET IMPLEMENTED");
+                    System.setProperty("webdriver.safari.driver", "safari.exe");
+                    driver = new SafariDriver();
+                }
+                if (browserName.toLowerCase().contains("edge")) {
+                    System.setProperty("webdriver.edge.driver", "src/main/resources/base/MicrosoftWebDriver.exe");
+                    driver = new EdgeDriver();
+                }
             }
-            if (browserName.toLowerCase().contains("internet")) {
-                System.setProperty("webdriver.ie.driver", "src/main/resources/base/IEDriverServer32.exe");
-                driver = new InternetExplorerDriver();
-            }
-            if (browserName.toLowerCase().contains("chrome")) {
-                System.setProperty("webdriver.chrome.driver", "src/main/resources/base/chromedriver.exe");
-                driver = new ChromeDriver();
-            }
-            if (browserName.toLowerCase().contains("safari")){
-                System.out.println("ERR: NOT YET IMPLEMENTED");
-                System.setProperty("webdriver.safari.driver", "safari.exe");
-                driver = new SafariDriver();
-            }
-            if (browserName.toLowerCase().contains("edge")){
-                System.setProperty("webdriver.edge.driver", "src/main/resources/base/MicrosoftWebDriver.exe");
-                driver = new EdgeDriver();
+            if (SystemUtils.IS_OS_LINUX){
+                System.out.println("OS is Linux");
+                System.out.println("Driver configuration for linux is not implemented yet");
             }
         }
 
