@@ -7,8 +7,8 @@
 
 	<test name="Jira_UI_Test_Grid_Chrome">
 		<parameter name="seleniumGridIp" value="http://127.0.0.1:4444/wd/hub"/>
-		<parameter name="useGrid" value="true"/>
-		<parameter name="browserName" value="chrome"/>
+		<parameter name="useGrid" value="false"/>
+		<parameter name="browserName" value="firefox"/>
     		<classes>
 		    	<class name="JiraUi" />
 		    </classes>
