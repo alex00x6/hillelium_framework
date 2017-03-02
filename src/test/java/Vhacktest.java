@@ -22,7 +22,6 @@ public class Vhacktest extends AndroidSetup {
         driver.quit();
     }
 
-
     @Test
     public void vhackUpgrade(){
         driver.findElement(By.id("org.vhack.dev.vhack:id/btnSwitch")).click();
